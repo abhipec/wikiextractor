@@ -2034,7 +2034,10 @@ def replaceInternalLinks(text):
                     pipe = last  # advance
                 curp = e1
             label = inner[pipe + 1:].strip()
-        res += text[cur:s] + makeInternalLink(title, label) + trail
+        if trail == "'s" or trail.istitle():
+            res += text[cur:s] + makeInternalLink(title, label) + trail
+        else:
+            res += text[cur:s] + makeInternalLink(title, label + trail)
         cur = end
     return res + text[cur:]
 
